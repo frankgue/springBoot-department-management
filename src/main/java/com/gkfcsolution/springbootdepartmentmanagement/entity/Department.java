@@ -1,8 +1,9 @@
 package com.gkfcsolution.springbootdepartmentmanagement.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * Created on 2025 at 15:51
@@ -25,6 +26,19 @@ public class Department {
     private Long departmentId;
     @Column(unique = true)
     @NotBlank(message = "Please add Department Name")
+   /* @Length(max = 10, min = 1)
+    @Size(min = 0, max = 15)
+    @Email
+    @Positive
+    @Negative
+    @PositiveOrZero
+    @NegativeOrZero
+
+    @Future
+    @FutureOrPresent
+
+    @Past
+    @PastOrPresent*/
     private String departmentName;
     private String departmentAddress;
     @Column(unique = true)
