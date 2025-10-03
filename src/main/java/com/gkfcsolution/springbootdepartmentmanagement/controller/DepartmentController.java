@@ -1,8 +1,11 @@
 package com.gkfcsolution.springbootdepartmentmanagement.controller;
 
 import com.gkfcsolution.springbootdepartmentmanagement.entity.Department;
+import com.gkfcsolution.springbootdepartmentmanagement.exception.DepartmentNotFounException;
 import com.gkfcsolution.springbootdepartmentmanagement.service.DepartmentService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,22 +23,25 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/gateway/departments")
 public class DepartmentController {
+    private final Logger LOGGER = LoggerFactory.getLogger(DepartmentController.class);
 
     @Autowired
     private DepartmentService departmentService;
 
     @PostMapping
     public Department saveDepartment(@Valid @RequestBody Department department){
+        LOGGER.info("Inside saveDepartment of DepartmentController");
         return departmentService.saveDepartment(department);
     }
 
     @GetMapping
     public List<Department> fetchDepartmentList(){
+        LOGGER.info("Inside fetchDepartmentList of DepartmentController");
         return departmentService.fetchDepartmentList();
     }
 
     @GetMapping(value = "/{id}")
-    public Department fetchDepartmentById(@PathVariable Long id){
+    public Department fetchDepartmentById(@PathVariable Long id) throws DepartmentNotFounException {
         return departmentService.fetchDepartmentById(id);
     }
 

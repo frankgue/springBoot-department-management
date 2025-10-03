@@ -1,6 +1,7 @@
 package com.gkfcsolution.springbootdepartmentmanagement.service;
 
 import com.gkfcsolution.springbootdepartmentmanagement.entity.Department;
+import com.gkfcsolution.springbootdepartmentmanagement.exception.DepartmentNotFounException;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface DepartmentService {
 
     List<Department> fetchDepartmentList();
 
-    Department fetchDepartmentById(Long id);
+    Department fetchDepartmentById(Long id) throws DepartmentNotFounException;
 
     void deleteDepartmentById(Long id);
 

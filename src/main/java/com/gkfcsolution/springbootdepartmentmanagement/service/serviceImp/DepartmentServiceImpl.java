@@ -1,6 +1,7 @@
 package com.gkfcsolution.springbootdepartmentmanagement.service.serviceImp;
 
 import com.gkfcsolution.springbootdepartmentmanagement.entity.Department;
+import com.gkfcsolution.springbootdepartmentmanagement.exception.DepartmentNotFounException;
 import com.gkfcsolution.springbootdepartmentmanagement.repository.DepartmentRepository;
 import com.gkfcsolution.springbootdepartmentmanagement.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Created on 2025 at 15:54
@@ -33,8 +35,13 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department fetchDepartmentById(Long id) {
-        return departmentRepository.findById(id).orElseThrow(() -> new RuntimeException("No department found with id : " + id));
+    public Department fetchDepartmentById(Long id) throws DepartmentNotFounException {
+//        return departmentRepository.findById(id).orElseThrow(() -> new RuntimeException("No department found with id : " + id));
+        Optional<Department> optionalDepartment = departmentRepository.findById(id);
+        if (optionalDepartment.isPresent()){
+            return optionalDepartment.get();
+        }
+        throw new DepartmentNotFounException("No department found with id : " + id);
     }
 
     @Override
