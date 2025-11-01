@@ -26,3 +26,9 @@ spring:
     show-sql: true
 welcome:
   message: Welcome Frank GUEKENG to SpringBoot
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
